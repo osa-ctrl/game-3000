@@ -54,6 +54,7 @@ public class ZombieGame extends JPanel implements KeyListener, ActionListener, M
     private long lastChestSpawn = 0;
     private long lastHordeSpawn = System.currentTimeMillis() + HORDE_SPAWN_DELAY;
     private Camera camera;
+    private MapGenerator mapGenerator;
     private int score = 0;
     private boolean gameRunning = false;
     private boolean mouseHeld = false;
@@ -89,6 +90,7 @@ public class ZombieGame extends JPanel implements KeyListener, ActionListener, M
         player = new Player(100, MAP_WIDTH / 2, MAP_HEIGHT / 2);
         player.setBaseSpeed(5);
         camera = new Camera(player.getPositionX(), player.getPositionY(), WINDOW_WIDTH, WINDOW_HEIGHT);
+        mapGenerator = new MapGenerator(MAP_WIDTH, MAP_HEIGHT);
         currentWeapon = new Weapon(Weapon.WeaponType.PISTOL);
         abilityManager = new AbilityManager();
         perkSelectionManeger.setAbilityManager(abilityManager);
@@ -148,6 +150,9 @@ public class ZombieGame extends JPanel implements KeyListener, ActionListener, M
         // Применяем трансформацию камеры
         Graphics2D worldGrafic = (Graphics2D) g2d.create();
         worldGrafic.translate(-camera.getX(), -camera.getY());
+
+        // Отрисовываем карту как фон
+        mapGenerator.draw(worldGrafic, 0, 0, MAP_WIDTH, MAP_HEIGHT);
 
         player.draw(worldGrafic);
         drawWorldObj(worldGrafic);

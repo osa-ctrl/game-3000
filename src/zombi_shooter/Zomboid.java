@@ -1,7 +1,6 @@
 package zombi_shooter;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 public class Zomboid {
     private Color COLOR_OF_ZOMBOID = new Color(255, 0, 0);
     private int x;
